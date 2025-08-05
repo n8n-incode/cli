@@ -1,0 +1,21 @@
+{
+  "name": "{{projectName}}",
+  "version": "1.0.0",
+  "description": "inCode project",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["incode", "n8n", "workflows"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@incode/cli": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+} 

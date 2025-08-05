@@ -1,0 +1,105 @@
+# n8n InCode CLI Project Guide
+
+## Project Overview
+This is a TypeScript CLI tool for managing n8n workflows as code. The project enables developers to build, organize, and deploy workflow automations using a readable, composable API with modern developer tools.
+
+## Project Structure
+- **Entry Point**: [src/index.ts](mdc:src/index.ts) - Main CLI application using Commander.js
+- **Authentication**: [src/login.ts](mdc:src/login.ts) - Handles n8n instance authentication
+- **Configuration**: [src/config.ts](mdc:src/config.ts) - Manages CLI configuration and auth checks
+- **Testing**: [src/test.ts](mdc:src/test.ts) - Test command for fetching workflows
+- **Build Output**: `dist/` - Compiled JavaScript files
+- **Configuration**: [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration
+
+## Development Standards
+
+### Code Style
+- Use ES6 import syntax (no require statements)
+- Follow TypeScript strict mode settings
+- Use async/await for asynchronous operations
+- Implement proper error handling with try/catch blocks
+- Use descriptive variable and function names
+
+### CLI Structure
+- All commands are defined in [src/index.ts](mdc:src/index.ts) using Commander.js
+- Each command should be implemented as a separate module in the `src/` directory
+- Commands should follow the pattern: `incode <command>`
+- Always include proper error handling and user feedback
+
+### Configuration Management
+- Configuration is stored in `.incode/config.json` (relative to project root)
+- Use [src/config.ts](mdc:src/config.ts) functions for config operations:
+  - `getConfig()` - Retrieve configuration
+  - `checkAuth()` - Validate authentication status
+- Always validate configuration before making API calls
+
+### API Integration
+- All n8n API calls use the `x-n8n-api-key` header for authentication
+- Base URL should be normalized (remove trailing slashes)
+- Use proper HTTP status code handling
+- Implement consistent error messaging
+
+### File Organization
+- Source files go in `src/` directory
+- Each command should have its own file (e.g., `login.ts`, `test.ts`)
+- Shared utilities and types should be in separate modules
+- Build output goes to `dist/` directory
+
+### Dependencies
+- **Runtime**: chalk (colored output), prompts (user input), commander (CLI framework)
+- **Development**: TypeScript, ESLint, Prettier
+- **Build**: TypeScript compiler with CommonJS output
+
+### Workflow Management
+- The CLI should support workflow discovery in `workflows/` directories
+- Each workflow should be in its own folder with a `workflow.ts` file
+- Support for workflow deployment, pulling, and diffing operations
+- Maintain compatibility with n8n's workflow format
+
+### Error Handling
+- Use descriptive error messages with emoji indicators (✅, ❌, 🔍)
+- Always provide actionable feedback to users
+- Log errors with appropriate detail for debugging
+- Exit with proper status codes on failures
+
+### User Experience
+- Provide clear, helpful command descriptions
+- Use colored output for better readability
+- Include progress indicators for long-running operations
+- Validate user input before processing
+
+## Common Patterns
+
+### Authentication Flow
+```typescript
+// Always check auth before API calls
+checkAuth();
+const { endpoint, token } = getConfig();
+```
+
+### API Request Pattern
+```typescript
+const res = await fetch(`${endpoint.replace(/\/$/, "")}/api/v1/endpoint`, {
+  headers: {
+    "x-n8n-api-key": token,
+    "Content-Type": "application/json",
+  },
+});
+```
+
+### Error Handling Pattern
+```typescript
+try {
+  // API call or operation
+} catch (error: any) {
+  console.error("❌ Operation failed:", error.message);
+  process.exit(1);
+}
+```
+
+## Development Workflow
+1. Add new commands to [src/index.ts](mdc:src/index.ts)
+2. Implement command logic in separate file
+3. Use `npm run build` to compile TypeScript
+4. Use `npm run build-link` to test CLI locally
+5. Test with actual n8n instance using `incode login` and `incode test`
