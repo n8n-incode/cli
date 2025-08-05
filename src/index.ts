@@ -7,6 +7,7 @@ import { Command } from "commander";
 import login from "./login";
 import test from "./test";
 import init from "./init";
+import pull from "./pull";
 
 const program = new Command();
 
@@ -32,5 +33,10 @@ program
   .command("test")
   .description("Get all workflows and display them")
   .action(test);
+
+program
+  .command("pull")
+  .description("Pull all workflows from n8n API to sync with the local project")
+  .action(pull);
 
 program.parse(process.argv);

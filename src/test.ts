@@ -1,4 +1,4 @@
-import { checkAuth, getConfig } from "./config";
+import { checkAuth, getConfig } from "./helpers";
 
 export default async function test() {
   checkAuth();

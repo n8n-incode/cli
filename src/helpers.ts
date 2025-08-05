@@ -30,3 +30,7 @@ export function checkAuth() {
     process.exit(1);
   }
 }
+
+export function getWorkflowStateFile(workflowName: string): string {
+  return workflowName.replace(/[<>:"/\\|?*]/g, "_").replace(/\s+/g, "_");
+}

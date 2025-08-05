@@ -2,7 +2,7 @@ import prompts from "prompts";
 import fs from "fs";
 import os from "os";
 import path from "path";
-import { CONFIG_DIR, CONFIG_FILE } from "./config";
+import { CONFIG_DIR, CONFIG_FILE } from "./helpers";
 
 export default async function login() {
   //   const { endpoint, token } = await prompts([

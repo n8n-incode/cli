@@ -67,6 +67,7 @@ This command will:
 |---------|-------------|
 | `incode init` | Initialize a new inCode project in the current directory |
 | `incode login` | Authenticate with your n8n instance |
+| `incode pull` | Sync workflows from your n8n instance to local state |
 
 ### Command Options
 
@@ -76,6 +77,10 @@ This command will:
 #### `incode login`
 - Interactive guide to setup API access to your n8n instance
 - Automatically saves credentials to `.incode/config.json`
+
+#### `incode pull`
+- Syncs workflows from your n8n instance to local state
+- Requires authentication (run `incode login` first)
 
 ---
 
